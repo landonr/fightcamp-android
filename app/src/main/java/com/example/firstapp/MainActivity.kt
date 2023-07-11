@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -49,7 +50,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.viewModelFactory
 import coil.compose.AsyncImage
@@ -65,6 +70,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -157,7 +164,7 @@ fun MyColumn(viewModel: ItemViewModel = ItemViewModel() ) {
             SearchBar(textState)
             LazyColumn(state = listState) {
                 items(GetFilteredList(viewModel.result, textState)) {
-                    WorkoutCard(it)
+                    WorkoutCard(modifier = Modifier, workoutItem = it)
                 }
                 if (viewModel.isLoading) { // Assuming you have a flag to indicate loading state
                     item {
@@ -183,20 +190,19 @@ fun MyColumn(viewModel: ItemViewModel = ItemViewModel() ) {
 }
 
 @Composable
-fun PhotoCard(workout: WorkoutItems, modifier: Modifier = Modifier) {
+fun PhotoCard(modifier: Modifier = Modifier, workout: WorkoutItems) {
     AsyncImage(
         model = ImageRequest.Builder(context = LocalContext.current)
             .data(workout.previewImgUrl)
             .crossfade(true)
             .build(),
         contentDescription = workout.desc,
-        contentScale = ContentScale.Crop,
-        modifier = Modifier.fillMaxWidth()
+        contentScale = ContentScale.Crop
     )
 }
 
 @Composable
-fun WorkoutCard(workoutItem: Pair<WorkoutItems, TrainerModel?>) {
+fun WorkoutCard(modifier: Modifier = Modifier, workoutItem: Pair<WorkoutItems, TrainerModel?>) {
     val padding = 16.dp
     Card(
         modifier = Modifier
@@ -204,34 +210,54 @@ fun WorkoutCard(workoutItem: Pair<WorkoutItems, TrainerModel?>) {
             .height(110.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.Top,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Column(modifier = Modifier
-                .background(Color.Red)
-                .weight(1f)
-                .fillMaxHeight()
-                .padding(padding)) {
-                Text(
-                    text = workoutItem.first.title ?: "none",
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    fontWeight = FontWeight.Bold
-                )
-                val name =
-                    (workoutItem.second?.firstName ?: "") + " " + workoutItem.second?.lastName ?: ""
-                Text(
-                    text = name,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
-            }
+        Row() {
+            WorkoutCardInfo(modifier.weight(1f).padding(8.dp), workoutItem)
             Box(modifier = Modifier
-                .background(Color.Yellow)
+                .background(Color.DarkGray)
                 .width(148.dp)
                 .fillMaxHeight()) {
-                PhotoCard(workout = workoutItem.first)
+                PhotoCard(modifier, workoutItem.first)
+            }
+        }
+    }
+}
+
+@Composable
+private fun WorkoutCardInfo(
+    modifier: Modifier = Modifier,
+    workoutItem: Pair<WorkoutItems, TrainerModel?>
+) {
+    fun convertIntToTime(time: Int): String {
+        val date = Date(time.toLong() * 1000)
+        val format = SimpleDateFormat("MM/dd/yyyy")
+        return format.format(date)
+    }
+
+    Column(
+        modifier = modifier
+            .fillMaxHeight()
+    ) {
+        Text(
+            text = workoutItem.first.title ?: "none",
+            fontWeight = FontWeight.Bold
+        )
+        val name =
+            (workoutItem.second?.firstName ?: "") + " " + workoutItem.second?.lastName ?: ""
+        val nameFontSize = 14.sp
+        Row(
+            modifier = Modifier
+                .fillMaxHeight()
+        ) {
+            Text(
+                text = name,
+                fontSize = nameFontSize
+            )
+            workoutItem.first.added?.let {
+                Text(
+                    text = " ⦁ " + convertIntToTime(it),
+                    maxLines = 1,
+                    fontSize = nameFontSize
+                )
             }
         }
     }

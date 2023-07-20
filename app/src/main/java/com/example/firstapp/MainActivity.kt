@@ -1,6 +1,6 @@
 package com.example.firstapp
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,21 +20,14 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.rounded.AddCircle
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -65,7 +58,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -76,7 +69,6 @@ import coil.request.ImageRequest
 import com.example.firstapp.ui.theme.FirstAppTheme
 import java.text.SimpleDateFormat
 import java.util.Date
-
 
 class MainActivity : ComponentActivity() {
     data class BottomNavItem(
@@ -110,6 +102,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val backStackEntry = navController.currentBackStackEntryAsState()
             val topBarState = rememberSaveable { (mutableStateOf(true)) }
+
             when(currentRoute(navController = navController)) {
                 "column" -> {
                     topBarState.value = false
@@ -183,12 +176,13 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             composable("xmlColumn") {
-                                AndroidView(
-                                    modifier = Modifier.fillMaxSize(),
-                                    factory = { context ->
-                                        layoutInflater.inflate(R.layout.layout, null, true)
-                                    }
-                                )
+                                val context = LocalContext.current
+                                val intent = Intent(context, MainActivityXML::class.java)
+
+                                // Pass the ViewModel to the activity through Intent extras
+//                                intent.putExtra("yourViewModelKey", viewModel)
+
+                                context.startActivity(intent)
                             }
                         }
                     }

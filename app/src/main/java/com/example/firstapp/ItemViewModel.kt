@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -21,6 +22,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.Serializable
 import java.lang.Exception
 import java.net.URL
 
@@ -84,14 +86,14 @@ class ImageFetcher() {
     }
 }
 
-class ItemViewModel : ViewModel() {
+class ItemViewModel : ViewModel(), Serializable {
     private val viewModelScope = CoroutineScope(Job() + Dispatchers.Default + CoroutineName("BackgroundCoroutine"))
 
     var trainers by mutableStateOf(emptyList<TrainerModel>())
         private set
     var result by mutableStateOf(emptyList<Pair<WorkoutItems, TrainerModel?>>())
         private set
-
+    val resultLiveData = MutableLiveData<List<Pair<WorkoutItems, TrainerModel?>>>(emptyList())
     var page = mutableStateOf(0)
         private set
     var isLoading by mutableStateOf(false)
@@ -127,6 +129,7 @@ class ItemViewModel : ViewModel() {
             })
         }
         result += newResult
+        resultLiveData.postValue(result)
         isLoading = false
     }
 

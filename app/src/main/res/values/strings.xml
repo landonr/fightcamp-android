@@ -2,9 +2,10 @@
     <string name="app_name">FirstApp</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_activity_main_activity_xml">MainActivityXML</string>
+    <string name="title_main_activity">MainActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label">Fragment</string>
+    <string name="second_fragment_label">Compose</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 

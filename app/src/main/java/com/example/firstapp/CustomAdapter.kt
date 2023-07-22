@@ -7,6 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.example.firstapp.datamodel.TrainerModel
+import com.example.firstapp.datamodel.WorkoutItems
+import com.example.firstapp.datamodel.dateString
+import com.example.firstapp.datamodel.fullTitle
 
 class CustomAdapter(var dataList: List<Pair<WorkoutItems, TrainerModel?>>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
@@ -27,12 +34,16 @@ class CustomAdapter(var dataList: List<Pair<WorkoutItems, TrainerModel?>>) : Rec
 
         // sets the image to the imageview from our itemHolder class
         workout.first.previewImgUrl?.let {
-            holder.imageView.setImageURI(it.toUri())
+            Glide.with(holder.imageView)
+                .load(it)
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
+                .into(holder.imageView)
         }
 
         // sets the text to the textview from our itemHolder class
-        holder.textView.text = workout.first.title
-
+        holder.titleTextView.text = workout.first.title
+        holder.trainerTextView.text = workout.second?.fullTitle
+        holder.dateTextView.text = workout.first.dateString
     }
 
     // return the number of the items in the list
@@ -43,6 +54,8 @@ class CustomAdapter(var dataList: List<Pair<WorkoutItems, TrainerModel?>>) : Rec
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageview)
-        val textView: TextView = itemView.findViewById(R.id.textView)
+        val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
+        val trainerTextView: TextView = itemView.findViewById(R.id.trainerTextView)
+        val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
     }
 }

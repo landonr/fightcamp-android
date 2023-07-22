@@ -1,4 +1,4 @@
-package com.example.firstapp
+package com.example.firstapp.compose
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.firstapp.ItemViewModel
 
 @Composable
 fun WorkoutComposableColumn(viewModel: ItemViewModel = ItemViewModel(), navController: NavHostController, modifier: Modifier = Modifier) {

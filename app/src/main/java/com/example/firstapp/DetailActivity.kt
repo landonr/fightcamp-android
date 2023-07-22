@@ -1,10 +1,5 @@
 package com.example.firstapp
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.firstapp.datamodel.TrainerModel
+import com.example.firstapp.datamodel.WorkoutItems
 import com.example.firstapp.ui.theme.FirstAppTheme
 
 @Composable

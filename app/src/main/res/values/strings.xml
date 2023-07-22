@@ -8,6 +8,10 @@
     <string name="second_fragment_label">Compose</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="card_title">Title</string>
+    <string name="card_trainer_title">Trainer</string>
+    <string name="card_date_title">Date</string>
+    <string name="card_image_description">Workout Image</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

@@ -1,8 +1,6 @@
-package com.example.firstapp
+package com.example.firstapp.datamodel
 
 import com.google.gson.annotations.SerializedName
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 
 data class TrainerModel (
     @SerializedName("id"         ) var id        : Int?    = null,

@@ -1,4 +1,4 @@
-package com.example.firstapp
+package com.example.firstapp.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.compose.rememberNavController
+import com.example.firstapp.R
 import com.example.firstapp.compose.WorkoutComposableHost
 
 class ComponentEmbedFragment : Fragment() {

@@ -36,7 +36,7 @@ fun WorkoutComposableColumn(viewModel: ItemViewModel = ItemViewModel(), navContr
                         navController.navigate("detail/${it.first.id}")
                     }, workoutItem = it)
                 }
-                if (viewModel.isLoading) { // Assuming you have a flag to indicate loading state
+                if (viewModel.isLoading.value == true) { // Assuming you have a flag to indicate loading state
                     item {
                         Box(
                             modifier = Modifier

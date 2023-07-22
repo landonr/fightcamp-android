@@ -2,11 +2,11 @@ package com.example.firstapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.example.firstapp.fragments.ComponentEmbedFragment
+import com.example.firstapp.fragments.WorkoutFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 

@@ -26,7 +26,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.firstapp.DetailActivity
 import com.example.firstapp.ItemViewModel
 import com.example.firstapp.ui.theme.FirstAppTheme
 

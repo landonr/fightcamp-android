@@ -1,8 +1,0 @@
-<resources>
-    <dimen name="corner_radius_small">4dp</dimen>
-    <dimen name="corner_radius_large">14dp</dimen>
-    <dimen name="card_padding">12dp</dimen>
-    <dimen name="card_height">12dp</dimen>
-    <dimen name="card_max_width">500dp</dimen>
-    <dimen name="card_preview_width">12dp</dimen>
-</resources>

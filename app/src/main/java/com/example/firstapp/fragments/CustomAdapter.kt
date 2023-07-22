@@ -1,15 +1,15 @@
-package com.example.firstapp
+package com.example.firstapp.fragments
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.example.firstapp.R
 import com.example.firstapp.datamodel.TrainerModel
 import com.example.firstapp.datamodel.WorkoutItems
 import com.example.firstapp.datamodel.dateString
@@ -29,7 +29,6 @@ class CustomAdapter(var dataList: List<Pair<WorkoutItems, TrainerModel?>>) : Rec
 
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val workout = dataList[position]
 
         // sets the image to the imageview from our itemHolder class

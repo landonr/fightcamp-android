@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.firstapp.datamodel.AllTrainerModel
@@ -92,14 +93,12 @@ class ItemViewModel : ViewModel(), Serializable {
     val resultLiveData = MutableLiveData<List<Pair<WorkoutItems, TrainerModel?>>>(emptyList())
     var page = mutableStateOf(0)
         private set
-    var isLoading by mutableStateOf(false)
-        private set
-
+    var isLoading = MutableLiveData<Boolean>(false)
 
     init {
         Log.d("LOADME", "viewmodel init")
         val page = page.value
-        isLoading = true
+        isLoading.postValue(true)
         viewModelScope.launch {
             loadData(page)
         }
@@ -126,7 +125,7 @@ class ItemViewModel : ViewModel(), Serializable {
         }
         result += newResult
         resultLiveData.postValue(result)
-        isLoading = false
+        isLoading.postValue(false)
     }
 
     private fun loadWorkouts(page: Int): Result<List<WorkoutItems>> {
@@ -160,11 +159,11 @@ class ItemViewModel : ViewModel(), Serializable {
     }
 
     fun loadMoreData() {
-        if (isLoading) {
+        if (isLoading.value == true) {
             Log.d("LOADME", "NOT loading more page $page")
             return
         }
-        isLoading = true
+        isLoading.postValue(true)
         page.value += 1
         val page = page.value
         viewModelScope.launch {
@@ -173,3 +172,4 @@ class ItemViewModel : ViewModel(), Serializable {
         }
     }
 }
+

@@ -1,25 +1,30 @@
 package com.example.firstapp.fragments
 
 import android.os.Bundle
+import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.firstapp.ItemViewModel
 import com.example.firstapp.R
-import kotlinx.coroutines.launch
+import com.example.firstapp.datamodel.WorkoutAndTrainer
+import com.example.firstapp.datamodel.WorkoutItems
 
-class WorkoutFragment : Fragment() {
+interface OnItemClickListener {
+    fun onItemClick(data: WorkoutAndTrainer)
+}
+class WorkoutFragment : Fragment(), OnItemClickListener {
     lateinit var viewModel: ItemViewModel
     private lateinit var loadingIndicator: ProgressBar
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -27,7 +32,7 @@ class WorkoutFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreate(savedInstanceState)
         // Inflate the fragment's XML layout
-        var view = layoutInflater.inflate(R.layout.workout_fragment_xml, null, false)
+        var view = layoutInflater.inflate(R.layout.workout_fragment, null, false)
         loadingIndicator = view.findViewById<ProgressBar>(R.id.progressBar)
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
         viewModel = ViewModelProvider(this)[ItemViewModel::class.java]
@@ -36,6 +41,10 @@ class WorkoutFragment : Fragment() {
         setupRefreshListener()
 
         return view
+    }
+
+    override fun onItemClick(data: WorkoutAndTrainer) {
+        findNavController().navigate(R.id.workoutDetailFragment)
     }
 
     private fun setupLoadingIndicatorListener() {
@@ -59,7 +68,7 @@ class WorkoutFragment : Fragment() {
         val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerView)
         val layoutManager = LinearLayoutManager(this.context)
         recyclerview.layoutManager = layoutManager
-        val adapter = CustomAdapter(emptyList())
+        val adapter = CustomAdapter(emptyList(), this)
         recyclerview.adapter = adapter
         bindToResultLiveData(adapter)
         setupLoadMoreListener(recyclerview, layoutManager)

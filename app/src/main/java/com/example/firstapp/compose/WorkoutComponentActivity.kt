@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.firstapp.datamodel.TrainerModel
+import com.example.firstapp.datamodel.WorkoutAndTrainer
 import com.example.firstapp.datamodel.WorkoutItems
 import com.example.firstapp.ui.theme.FirstAppTheme
 
@@ -72,7 +73,7 @@ fun SearchBar(state: MutableState<TextFieldValue>) {
     )
 }
 
-fun GetFilteredList(results: List<Pair<WorkoutItems, TrainerModel?>>, state: MutableState<TextFieldValue>): List<Pair<WorkoutItems, TrainerModel?>> {
+fun GetFilteredList(results: List<WorkoutAndTrainer>, state: MutableState<TextFieldValue>): List<WorkoutAndTrainer> {
     if (state.value.text.isNotEmpty()) {
         return results.filter {
             var searchTitle = state.value.text

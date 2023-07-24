@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.firstapp.datamodel.TrainerModel
+import com.example.firstapp.datamodel.WorkoutAndTrainer
 import com.example.firstapp.datamodel.WorkoutItems
 import com.example.firstapp.datamodel.dateString
 import com.example.firstapp.datamodel.fullTitle
@@ -43,7 +44,7 @@ fun PhotoCard(modifier: Modifier = Modifier, workout: WorkoutItems) {
 @Composable
 private fun WorkoutCardInfo(
     modifier: Modifier = Modifier,
-    workoutItem: Pair<WorkoutItems, TrainerModel?>
+    workoutItem: WorkoutAndTrainer
 ) {
     fun convertIntToTime(time: Int): String {
         val date = Date(time.toLong() * 1000)
@@ -79,7 +80,7 @@ private fun WorkoutCardInfo(
 }
 
 @Composable
-fun WorkoutCard(modifier: Modifier = Modifier, workoutItem: Pair<WorkoutItems, TrainerModel?>) {
+fun WorkoutCard(modifier: Modifier = Modifier, workoutItem: WorkoutAndTrainer) {
     val padding = 16.dp
     Card(
         modifier = Modifier

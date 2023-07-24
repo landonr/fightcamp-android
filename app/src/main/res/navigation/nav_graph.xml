@@ -3,26 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/workoutFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.firstapp.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        android:id="@+id/workoutDetailFragment"
+        android:name="com.example.firstapp.fragments.WorkoutDetailFragment"
+        android:label="workout_detail_fragment"
+        tools:layout="@layout/workout_detail_fragment" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_workoutDetailFragment_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.firstapp.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+        android:id="@+id/workoutFragment"
+        android:name="com.example.firstapp.fragments.WorkoutFragment"
+        android:label="workout_fragment"
+        tools:layout="@layout/workout_fragment" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_workoutFragment_to_workoutDetailFragment"
+            app:destination="@id/workoutDetailFragment" />
+        <action
+            android:id="@+id/action_workoutFragment_to_componentEmbedFragment"
+            app:destination="@id/componentEmbedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/componentEmbedFragment"
+        android:name="com.example.firstapp.fragments.ComponentEmbedFragment"
+        android:label="fragment_component_embed"
+        tools:layout="@layout/fragment_component_embed" >
+        <action
+            android:id="@+id/action_componentEmbedFragment_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
     </fragment>
 </navigation>

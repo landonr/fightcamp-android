@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.example.firstapp.datamodel.AllTrainerModel
 import com.example.firstapp.datamodel.FightcampModel
 import com.example.firstapp.datamodel.TrainerModel
+import com.example.firstapp.datamodel.WorkoutAndTrainer
 import com.example.firstapp.datamodel.WorkoutItems
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -88,9 +89,9 @@ class ItemViewModel : ViewModel(), Serializable {
 
     var trainers by mutableStateOf(emptyList<TrainerModel>())
         private set
-    var result by mutableStateOf(emptyList<Pair<WorkoutItems, TrainerModel?>>())
+    var result by mutableStateOf(emptyList<WorkoutAndTrainer>())
         private set
-    val resultLiveData = MutableLiveData<List<Pair<WorkoutItems, TrainerModel?>>>(emptyList())
+    val resultLiveData = MutableLiveData<List<WorkoutAndTrainer>>(emptyList())
     var page = mutableStateOf(0)
         private set
     var isLoading = MutableLiveData<Boolean>(false)
@@ -119,7 +120,7 @@ class ItemViewModel : ViewModel(), Serializable {
     ) {
         Log.d("LOADME", "setting page $page result $workouts $trainers")
         val newResult = workouts.map { workout ->
-            Pair<WorkoutItems, TrainerModel?>(workout, trainers.firstOrNull { trainerModel ->
+            WorkoutAndTrainer(workout, trainers.firstOrNull { trainerModel ->
                 trainerModel.id == workout.trainerId
             })
         }

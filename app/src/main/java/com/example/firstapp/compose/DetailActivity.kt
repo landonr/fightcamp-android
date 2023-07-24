@@ -20,11 +20,12 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.firstapp.datamodel.TrainerModel
+import com.example.firstapp.datamodel.WorkoutAndTrainer
 import com.example.firstapp.datamodel.WorkoutItems
 import com.example.firstapp.ui.theme.FirstAppTheme
 
 @Composable
-fun DetailActivity(navController: NavHostController, detailedInfo: Pair<WorkoutItems, TrainerModel?>) {
+fun DetailActivity(navController: NavHostController, detailedInfo: WorkoutAndTrainer) {
     FirstAppTheme {
         // A surface container using the 'background' color from the theme
         Surface(

@@ -3,6 +3,8 @@ package com.example.firstapp.datamodel
 import java.text.SimpleDateFormat
 import java.util.Date
 
+typealias WorkoutAndTrainer = Pair<WorkoutItems, TrainerModel?>
+
 val TrainerModel.fullTitle: String
     get() = (firstName ?: "") + " " + lastName ?: ""
 

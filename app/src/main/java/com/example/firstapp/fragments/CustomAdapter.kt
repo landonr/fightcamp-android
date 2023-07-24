@@ -11,11 +11,15 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.firstapp.R
 import com.example.firstapp.datamodel.TrainerModel
+import com.example.firstapp.datamodel.WorkoutAndTrainer
 import com.example.firstapp.datamodel.WorkoutItems
 import com.example.firstapp.datamodel.dateString
 import com.example.firstapp.datamodel.fullTitle
 
-class CustomAdapter(var dataList: List<Pair<WorkoutItems, TrainerModel?>>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(
+    var dataList: List<WorkoutAndTrainer>,
+                    private val itemClickListener: OnItemClickListener
+) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,6 +47,10 @@ class CustomAdapter(var dataList: List<Pair<WorkoutItems, TrainerModel?>>) : Rec
         holder.titleTextView.text = workout.first.title
         holder.trainerTextView.text = workout.second?.fullTitle
         holder.dateTextView.text = workout.first.dateString
+        holder.itemView.setOnClickListener {
+            // Call the onItemClick listener when an item is clicked
+            itemClickListener.onItemClick(workout)
+        }
     }
 
     // return the number of the items in the list

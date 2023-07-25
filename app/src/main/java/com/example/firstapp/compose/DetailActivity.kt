@@ -1,5 +1,6 @@
 package com.example.firstapp.compose
 
+import WorkoutAndTrainer
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,8 +21,6 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.firstapp.datamodel.TrainerModel
-import com.example.firstapp.datamodel.WorkoutAndTrainer
-import com.example.firstapp.datamodel.WorkoutItems
 import com.example.firstapp.ui.theme.FirstAppTheme
 
 @Composable
@@ -35,17 +34,17 @@ fun DetailActivity(navController: NavHostController, detailedInfo: WorkoutAndTra
             Column() {
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
-                        .data(detailedInfo.first.previewImgUrl)
+                        .data(detailedInfo.workout.previewImgUrl)
                         .crossfade(true)
                         .build(),
-                    contentDescription = detailedInfo.first.desc,
+                    contentDescription = detailedInfo.workout.desc,
                     contentScale = ContentScale.Crop
                 )
                 Text(
-                    text = detailedInfo.first.desc?: "",
+                    text = detailedInfo.workout.desc?: "",
                     modifier = Modifier.padding(16.dp)
                 )
-                detailedInfo.second?.let { trainer ->
+                detailedInfo.trainer?.let { trainer ->
                     trainerCard(trainer, modifier = Modifier.padding(16.dp))
                 }
             }

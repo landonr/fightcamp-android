@@ -1,5 +1,6 @@
 package com.example.firstapp.fragments
 
+import WorkoutAndTrainer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +11,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.firstapp.R
-import com.example.firstapp.datamodel.TrainerModel
-import com.example.firstapp.datamodel.WorkoutAndTrainer
-import com.example.firstapp.datamodel.WorkoutItems
-import com.example.firstapp.datamodel.dateString
-import com.example.firstapp.datamodel.fullTitle
+import dateString
+import fullTitle
 
 class CustomAdapter(
     var dataList: List<WorkoutAndTrainer>,
@@ -36,7 +34,7 @@ class CustomAdapter(
         val workout = dataList[position]
 
         // sets the image to the imageview from our itemHolder class
-        workout.first.previewImgUrl?.let {
+        workout.workout.previewImgUrl?.let {
             Glide.with(holder.imageView)
                 .load(it)
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
@@ -44,9 +42,9 @@ class CustomAdapter(
         }
 
         // sets the text to the textview from our itemHolder class
-        holder.titleTextView.text = workout.first.title
-        holder.trainerTextView.text = workout.second?.fullTitle
-        holder.dateTextView.text = workout.first.dateString
+        holder.titleTextView.text = workout.workout.title
+        holder.trainerTextView.text = workout.trainer?.fullTitle
+        holder.dateTextView.text = workout.workout.dateString
         holder.itemView.setOnClickListener {
             // Call the onItemClick listener when an item is clicked
             itemClickListener.onItemClick(workout)

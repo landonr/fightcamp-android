@@ -9,19 +9,32 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
-        android:id="@+id/imageViewWorkoutPreview"
+        android:id="@+id/detailImageViewWorkoutPreview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textViewWorkoutDescription"
+        android:id="@+id/detailTextViewWorkoutTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/graphik_medium"
         android:padding="@dimen/card_padding"
         android:text="@string/hello_blank_fragment"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="@dimen/large_title_size" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_padding" />
+
+    <TextView
+        android:id="@+id/detailTextViewWorkoutDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/graphik_regular"
+        android:padding="@dimen/card_padding"
+        android:textSize="@dimen/small_title_size" />
 
     <Space
         android:layout_width="match_parent"
@@ -32,32 +45,52 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/graphik_medium"
         android:padding="@dimen/card_padding"
-        android:text="@string/title_with" />
+        android:text="@string/title_with"
+        android:textSize="@dimen/small_title_size" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/detail_card_height"
+        android:layout_margin="@dimen/card_padding"
+        app:cardCornerRadius="@dimen/corner_radius_small">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:padding="@dimen/card_padding">
 
-            <ImageView
-                android:id="@+id/imageViewTrainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:src="@tools:sample/avatars" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                app:layout_constraintDimensionRatio="1:1">
+
+                <ImageView
+                    android:id="@+id/detailImageViewTrainer"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/textViewTrainerName"
-                android:layout_width="match_parent"
+                android:id="@+id/detailTextViewTrainerName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:fontFamily="@font/graphik_medium"
                 android:padding="@dimen/card_padding"
                 android:text="@string/hello_blank_fragment"
-                android:textAlignment="center" />
+                android:textAlignment="textStart"
+                android:textSize="@dimen/large_title_size" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

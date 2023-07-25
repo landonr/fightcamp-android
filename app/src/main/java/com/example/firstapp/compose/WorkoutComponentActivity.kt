@@ -1,5 +1,6 @@
 package com.example.firstapp.compose
 
+import WorkoutAndTrainer
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -27,9 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.example.firstapp.datamodel.TrainerModel
-import com.example.firstapp.datamodel.WorkoutAndTrainer
-import com.example.firstapp.datamodel.WorkoutItems
 import com.example.firstapp.ui.theme.FirstAppTheme
 
 
@@ -78,7 +76,7 @@ fun GetFilteredList(results: List<WorkoutAndTrainer>, state: MutableState<TextFi
         return results.filter {
             var searchTitle = state.value.text
                 .lowercase().replace(" ", "")
-            var valueTitle = it.first.title?: ""
+            var valueTitle = it.workout.title?: ""
             return@filter valueTitle
                 .lowercase().replace(" ", "")
                 .contains(searchTitle)

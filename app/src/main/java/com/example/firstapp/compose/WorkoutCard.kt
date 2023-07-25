@@ -1,5 +1,6 @@
 package com.example.firstapp.compose
 
+import WorkoutAndTrainer
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,11 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.firstapp.datamodel.TrainerModel
-import com.example.firstapp.datamodel.WorkoutAndTrainer
 import com.example.firstapp.datamodel.WorkoutItems
-import com.example.firstapp.datamodel.dateString
-import com.example.firstapp.datamodel.fullTitle
+import dateString
+import fullTitle
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -57,10 +56,10 @@ private fun WorkoutCardInfo(
             .fillMaxHeight()
     ) {
         Text(
-            text = workoutItem.first.title ?: "none",
+            text = workoutItem.workout.title ?: "none",
             fontWeight = FontWeight.Bold
         )
-        val name = workoutItem.second?.fullTitle?: ""
+        val name = workoutItem.trainer?.fullTitle?: ""
         val nameFontSize = 14.sp
         Row(
             modifier = Modifier
@@ -71,7 +70,7 @@ private fun WorkoutCardInfo(
                 fontSize = nameFontSize
             )
             Text(
-                text = workoutItem.first.dateString,
+                text = workoutItem.workout.dateString,
                 maxLines = 1,
                 fontSize = nameFontSize
             )
@@ -100,7 +99,7 @@ fun WorkoutCard(modifier: Modifier = Modifier, workoutItem: WorkoutAndTrainer) {
                     .width(148.dp)
                     .fillMaxHeight()
             ) {
-                PhotoCard(modifier, workoutItem.first)
+                PhotoCard(modifier, workoutItem.workout)
             }
         }
     }

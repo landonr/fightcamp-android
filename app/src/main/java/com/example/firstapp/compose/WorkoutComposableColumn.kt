@@ -33,7 +33,7 @@ fun WorkoutComposableColumn(viewModel: ItemViewModel = ItemViewModel(), navContr
             LazyColumn(state = listState) {
                 items(GetFilteredList(viewModel.result, textState)) {
                     WorkoutCard(modifier = Modifier.clickable {
-                        navController.navigate("detail/${it.first.id}")
+                        navController.navigate("detail/${it.workout.id}")
                     }, workoutItem = it)
                 }
                 if (viewModel.isLoading.value == true) { // Assuming you have a flag to indicate loading state

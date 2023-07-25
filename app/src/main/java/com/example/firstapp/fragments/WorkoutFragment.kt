@@ -1,25 +1,24 @@
 package com.example.firstapp.fragments
 
+import WorkoutAndTrainer
 import android.os.Bundle
-import android.text.Layout
-import androidx.fragment.app.Fragment
+import android.text.Layout.Directions
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.firstapp.ItemViewModel
 import com.example.firstapp.R
-import com.example.firstapp.datamodel.WorkoutAndTrainer
-import com.example.firstapp.datamodel.WorkoutItems
+import com.example.firstapp.databinding.WorkoutDetailFragmentBinding
 
 interface OnItemClickListener {
     fun onItemClick(data: WorkoutAndTrainer)
@@ -44,7 +43,7 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
     }
 
     override fun onItemClick(data: WorkoutAndTrainer) {
-        findNavController().navigate(R.id.workoutDetailFragment)
+        findNavController().navigate(R.id.workoutDetailFragment, bundleOf(getString(R.string.workout) to data))
     }
 
     private fun setupLoadingIndicatorListener() {

@@ -1,15 +1,64 @@
 package com.example.firstapp.fragments
 
+import WorkoutAndTrainer
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.firstapp.R
+import com.example.firstapp.datamodel.TrainerModel
+import com.example.firstapp.datamodel.WorkoutItems
+import fullTitle
 
 class WorkoutDetailFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val viewHolder = ViewHolder(view)
+        if(arguments?.containsKey(getString(R.string.workout)) == true) {
+            val data = arguments?.getSerializable(getString(R.string.workout), WorkoutAndTrainer::class.java)
+            data.let {
+                it?.workout?.let { workout ->
+                    setupWorkoutDetails(viewHolder, workout)
+                }
+                it?.trainer?.let { trainer ->
+                    setupTrainerDetails(viewHolder, trainer)
+                }
+            }
+        }
+    }
+
+    private fun setupTrainerDetails(
+        viewHolder: ViewHolder,
+        trainer: TrainerModel
+    ) {
+        viewHolder.trainerTextView.text = trainer.fullTitle
+        trainer.photoUrl?.let {
+            Glide.with(viewHolder.trainerImageView)
+                .load(it)
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
+                .into(viewHolder.trainerImageView)
+        }
+    }
+
+    private fun setupWorkoutDetails(
+        viewHolder: ViewHolder,
+        workout: WorkoutItems
+    ) {
+        viewHolder.titleTextView.text = workout.title
+        viewHolder.descriptionTextView.text = workout.desc
+        workout.previewImgUrl?.let {
+            Glide.with(viewHolder.imageView)
+                .load(it)
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
+                .into(viewHolder.imageView)
+        }
     }
 
     override fun onCreateView(
@@ -20,21 +69,11 @@ class WorkoutDetailFragment : Fragment() {
         return inflater.inflate(R.layout.workout_detail_fragment, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment WorkoutDetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            WorkoutDetailFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
+    class ViewHolder(itemView: View) {
+        val imageView: ImageView = itemView.findViewById(R.id.detailImageViewWorkoutPreview)
+        val titleTextView: TextView = itemView.findViewById(R.id.detailTextViewWorkoutTitle)
+        val descriptionTextView: TextView = itemView.findViewById(R.id.detailTextViewWorkoutDescription)
+        val trainerTextView: TextView = itemView.findViewById(R.id.detailTextViewTrainerName)
+        val trainerImageView: ImageView = itemView.findViewById(R.id.detailImageViewTrainer)
     }
 }

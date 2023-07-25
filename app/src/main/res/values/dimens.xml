@@ -8,4 +8,5 @@
     <dimen name="card_preview_width">12dp</dimen>
     <dimen name="large_title_size">18sp</dimen>
     <dimen name="small_title_size">14sp</dimen>
+    <dimen name="detail_card_height">128dp</dimen>
 </resources>

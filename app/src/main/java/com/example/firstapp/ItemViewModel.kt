@@ -1,16 +1,15 @@
 package com.example.firstapp
 
+import WorkoutAndTrainer
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.firstapp.datamodel.AllTrainerModel
 import com.example.firstapp.datamodel.FightcampModel
 import com.example.firstapp.datamodel.TrainerModel
-import com.example.firstapp.datamodel.WorkoutAndTrainer
 import com.example.firstapp.datamodel.WorkoutItems
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

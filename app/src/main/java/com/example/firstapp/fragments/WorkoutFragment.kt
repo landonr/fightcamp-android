@@ -2,7 +2,6 @@ package com.example.firstapp.fragments
 
 import WorkoutAndTrainer
 import android.os.Bundle
-import android.text.Layout.Directions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.firstapp.ItemViewModel
 import com.example.firstapp.R
-import com.example.firstapp.databinding.WorkoutDetailFragmentBinding
 
 interface OnItemClickListener {
     fun onItemClick(data: WorkoutAndTrainer)

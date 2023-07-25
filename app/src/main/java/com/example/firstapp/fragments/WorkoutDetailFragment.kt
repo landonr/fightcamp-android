@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -16,13 +15,14 @@ import com.example.firstapp.R
 import com.example.firstapp.datamodel.TrainerModel
 import com.example.firstapp.datamodel.WorkoutItems
 import fullTitle
+import getSerializableSafe
 
 class WorkoutDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewHolder = ViewHolder(view)
         if(arguments?.containsKey(getString(R.string.workout)) == true) {
-            val data = arguments?.getSerializable(getString(R.string.workout), WorkoutAndTrainer::class.java)
+            val data = arguments?.getSerializableSafe(getString(R.string.workout), WorkoutAndTrainer::class.java)
             data.let {
                 it?.workout?.let { workout ->
                     setupWorkoutDetails(viewHolder, workout)

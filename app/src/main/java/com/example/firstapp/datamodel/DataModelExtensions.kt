@@ -1,5 +1,6 @@
-import android.app.Activity
+
 import android.os.Build
+import android.os.Bundle
 import com.example.firstapp.datamodel.TrainerModel
 import com.example.firstapp.datamodel.WorkoutItems
 import java.io.Serializable
@@ -21,10 +22,9 @@ val WorkoutItems.dateString: String
 
 class WorkoutAndTrainer(var workout: WorkoutItems, var trainer: TrainerModel?): Serializable {}
 
-fun <T : Serializable?> getSerializable(activity: Activity, name: String, clazz: Class<T>): T
-{
-    return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-        activity.intent.getSerializableExtra(name, clazz)!!
+fun <T : Serializable?> Bundle.getSerializableSafe(key: String, m_class: Class<T>): T {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+        this.getSerializable(key, m_class)!!
     else
-        activity.intent.getSerializableExtra(name) as T
+        this.getSerializable(key) as T
 }

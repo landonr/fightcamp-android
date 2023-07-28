@@ -18,10 +18,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -56,7 +56,8 @@ fun currentRoute(navController: NavHostController): String? {
 @Composable
 fun WorkoutComposableHost(
     navController: NavHostController,
-    topBarState: MutableState<Boolean>
+    topBarState: MutableState<Boolean>,
+    viewModel: ComposeItemViewModel = hiltViewModel()
 ) {
     when(currentRoute(navController = navController)) {
         "column" -> {
@@ -90,7 +91,8 @@ fun WorkoutComposableHost(
         }) { contentPadding ->
         FirstAppTheme {
             Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                val viewModel = remember { ComposeItemViewModel() }
+//                val viewModel = remember { ComposeItemViewModel() }
+//                val viewModel: ComposeItemViewModel by hiltNavGraphViewModels(R.id.nav_graph)
 
                 NavHost(
                     navController = navController,

@@ -1,4 +1,4 @@
-package com.example.firstapp.fragments
+package com.example.firstapp.fragments.viewModels
 
 import Logger.Companion.debugLog
 import WorkoutAndTrainer
@@ -25,7 +25,8 @@ interface IFragmentItemViewModel {
 }
 
 @HiltViewModel
-class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable, IFragmentItemViewModel {
+class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable,
+    IFragmentItemViewModel {
     @Inject lateinit var workoutManager: WorkoutManager
     private val viewModelScope = CoroutineScope(Job() + Dispatchers.Default + CoroutineName("BackgroundCoroutine"))
     override val result = MutableLiveData<List<WorkoutAndTrainer>>(emptyList())

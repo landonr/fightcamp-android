@@ -5,7 +5,7 @@ import WorkoutAndTrainer
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.firstapp.fragments.IFragmentItemViewModel
+import com.example.firstapp.fragments.viewModels.IFragmentItemViewModel
 import com.example.firstapp.services.WorkoutManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineName
@@ -17,8 +17,9 @@ import java.io.Serializable
 import javax.inject.Inject
 
 @HiltViewModel
-class ComposeItemViewModel @Inject constructor() : ViewModel(), Serializable, IFragmentItemViewModel {
-    private lateinit var repo: WorkoutManager
+class ComposeItemViewModel @Inject constructor() : ViewModel(), Serializable,
+    IFragmentItemViewModel {
+    @Inject lateinit var workoutManager: WorkoutManager
     private val viewModelScope = CoroutineScope(Job() + Dispatchers.Default + CoroutineName("BackgroundCoroutine"))
     override val result = MutableLiveData<List<WorkoutAndTrainer>>(emptyList())
     override val page = mutableStateOf(0)
@@ -34,7 +35,7 @@ class ComposeItemViewModel @Inject constructor() : ViewModel(), Serializable, IF
     private suspend fun loadData(page: Int) {
         debugLog("ComposeItemViewModel", "loadData page $page")
         isLoading.postValue(true)
-        val workoutList = repo.loadData(page)
+        val workoutList = workoutManager.loadData(page)
         workoutList.onSuccess {
             isLoading.postValue(true)
             result.postValue(it)

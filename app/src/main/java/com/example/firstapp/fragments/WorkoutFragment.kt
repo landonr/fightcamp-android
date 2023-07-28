@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.firstapp.R
+import com.example.firstapp.fragments.viewModels.FragmentItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 interface OnItemClickListener {

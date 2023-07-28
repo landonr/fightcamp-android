@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/workoutFragment">
+    app:startDestination="@id/componentEmbedFragment">
 
     <fragment
         android:id="@+id/workoutDetailFragment"
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/componentEmbedFragment"
-        android:name="com.example.firstapp.fragments.ComponentEmbedFragment"
+        android:name="com.example.firstapp.compose.ComponentEmbedFragment"
         android:label="fragment_component_embed"
         tools:layout="@layout/fragment_component_embed" >
         <action

@@ -5,7 +5,9 @@ import WorkoutAndTrainer
 import com.example.firstapp.datamodel.TrainerModel
 import com.example.firstapp.datamodel.WorkoutItem
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class WorkoutManager @Inject constructor() {
     private var trainers: List<TrainerModel> = emptyList()
 

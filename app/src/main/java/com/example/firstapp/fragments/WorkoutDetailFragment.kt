@@ -13,7 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.firstapp.R
 import com.example.firstapp.datamodel.TrainerModel
-import com.example.firstapp.datamodel.WorkoutItems
+import com.example.firstapp.datamodel.WorkoutItem
 import fullTitle
 import getSerializableSafe
 
@@ -49,7 +49,7 @@ class WorkoutDetailFragment : Fragment() {
 
     private fun setupWorkoutDetails(
         viewHolder: ViewHolder,
-        workout: WorkoutItems
+        workout: WorkoutItem
     ) {
         viewHolder.titleTextView.text = workout.title
         viewHolder.descriptionTextView.text = workout.desc

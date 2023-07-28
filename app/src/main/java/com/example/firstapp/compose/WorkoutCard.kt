@@ -22,14 +22,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.firstapp.datamodel.WorkoutItems
+import com.example.firstapp.datamodel.WorkoutItem
 import dateString
 import fullTitle
 import java.text.SimpleDateFormat
 import java.util.Date
 
 @Composable
-fun PhotoCard(modifier: Modifier = Modifier, workout: WorkoutItems) {
+fun PhotoCard(modifier: Modifier = Modifier, workout: WorkoutItem) {
     AsyncImage(
         model = ImageRequest.Builder(context = LocalContext.current)
             .data(workout.previewImgUrl)

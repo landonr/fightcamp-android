@@ -9,20 +9,22 @@ import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.firstapp.ItemViewModel
 import com.example.firstapp.R
+import dagger.hilt.android.AndroidEntryPoint
 
 interface OnItemClickListener {
     fun onItemClick(data: WorkoutAndTrainer)
 }
+
+@AndroidEntryPoint
 class WorkoutFragment : Fragment(), OnItemClickListener {
-    lateinit var viewModel: ItemViewModel
+    private val viewModel by viewModels<FragmentItemViewModel>()
     private lateinit var loadingIndicator: ProgressBar
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
@@ -32,7 +34,6 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
         var view = layoutInflater.inflate(R.layout.workout_fragment, null, false)
         loadingIndicator = view.findViewById<ProgressBar>(R.id.progressBar)
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
-        viewModel = ViewModelProvider(this)[ItemViewModel::class.java]
         setupLoadingIndicatorListener()
         setupRecyclerView(view)
         setupRefreshListener()
@@ -92,7 +93,7 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
     }
 
     private fun bindToResultLiveData(adapter: CustomAdapter) {
-        viewModel.resultLiveData.observe(viewLifecycleOwner, Observer { updatedResult ->
+        viewModel.result.observe(viewLifecycleOwner, Observer { updatedResult ->
             // Update the adapter's data list with the new data and notify the adapter
             adapter.dataList = updatedResult
             adapter.notifyDataSetChanged()

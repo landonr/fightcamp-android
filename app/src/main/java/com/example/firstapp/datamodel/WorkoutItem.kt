@@ -2,19 +2,8 @@ package com.example.firstapp.datamodel
 
 import com.google.gson.annotations.SerializedName
 
-data class TrainerModel (
-    @SerializedName("id"         ) var id        : Int?    = null,
-    @SerializedName("first_name" ) var firstName : String? = null,
-    @SerializedName("last_name"  ) var lastName  : String? = null,
-    @SerializedName("photo_url"  ) var photoUrl  : String? = null
-)
-
-data class AllTrainerModel (
-    var items: List<TrainerModel>? = null
-)
-
-data class WorkoutItems (
-    @SerializedName("id"              ) var id            : Int?    = null,
+data class WorkoutItem (
+    @SerializedName("id"              ) var id            : Int,
     @SerializedName("title"           ) var title         : String? = null,
     @SerializedName("desc"            ) var desc          : String? = null,
     @SerializedName("type"            ) var type          : String? = null,
@@ -22,9 +11,9 @@ data class WorkoutItems (
     @SerializedName("nbr_rounds"      ) var nbrRounds     : Int?    = null,
     @SerializedName("preview_img_url" ) var previewImgUrl : String? = null,
     @SerializedName("level"           ) var level         : String? = null,
-    @SerializedName("trainer_id"      ) var trainerId     : Int?    = null
+    @SerializedName("trainer_id"      ) var trainerId     : Int
 )
 
-data class FightcampModel (
-    var items: List<WorkoutItems>? = null
+data class WorkoutItemList (
+    var items: List<WorkoutItem>? = null
 )

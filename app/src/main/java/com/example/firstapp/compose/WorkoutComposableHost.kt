@@ -26,7 +26,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.firstapp.ItemViewModel
 import com.example.firstapp.ui.theme.FirstAppTheme
 
 data class BottomNavItem(
@@ -91,7 +90,7 @@ fun WorkoutComposableHost(
         }) { contentPadding ->
         FirstAppTheme {
             Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                val viewModel = remember { ItemViewModel() }
+                val viewModel = remember { ComposeItemViewModel() }
 
                 NavHost(
                     navController = navController,
@@ -106,7 +105,7 @@ fun WorkoutComposableHost(
                     }
                     composable("detail/{itemId}") { backStackEntry ->
                         val itemId = backStackEntry.arguments?.getString("itemId")
-                        viewModel.result.first { it.workout.id.toString() == itemId }?.let {
+                        viewModel.result.value?.first { it.workout.id.toString() == itemId }?.let {
                             DetailActivity(navController, it)
                         }
                     }

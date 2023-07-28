@@ -1,7 +1,7 @@
 package com.example.firstapp.fragments
 
+import Logger.Companion.debugLog
 import WorkoutAndTrainer
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
@@ -31,7 +31,7 @@ class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable, I
     override val page = mutableStateOf(0)
     override val isLoading = MutableLiveData<Boolean>(false)
     init {
-        Log.d("LOADME", "viewmodel init")
+        debugLog("FragmentItemViewModel", "viewmodel init")
         val page = page.value
         viewModelScope.launch {
             loadData(page)
@@ -39,7 +39,7 @@ class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable, I
     }
 
     private suspend fun loadData(page: Int) {
-        Log.d("LOADME", "loadData page $page")
+        debugLog("FragmentItemViewModel", "loadData page $page")
         isLoading.postValue(true)
         val workoutList = workoutManager.loadData(page)
         workoutList.onSuccess {
@@ -50,14 +50,14 @@ class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable, I
 
     override fun loadMoreData() {
         if (isLoading.value == true) {
-            Log.d("LOADME", "NOT loading more page $page")
+            debugLog("FragmentItemViewModel", "NOT loading more page $page")
             return
         }
         isLoading.postValue(true)
         page.value += 1
         val page = page.value
         viewModelScope.launch {
-            Log.d("LOADME", "loading more page $page")
+            debugLog("FragmentItemViewModel", "loading more page $page")
             loadData(page)
         }
     }

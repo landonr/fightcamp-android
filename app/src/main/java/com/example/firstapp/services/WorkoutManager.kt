@@ -1,7 +1,7 @@
 package com.example.firstapp.services
 
+import Logger.Companion.debugLog
 import WorkoutAndTrainer
-import android.util.Log
 import com.example.firstapp.datamodel.TrainerModel
 import com.example.firstapp.datamodel.WorkoutItem
 import javax.inject.Inject
@@ -10,7 +10,7 @@ class WorkoutManager @Inject constructor() {
     private var trainers: List<TrainerModel> = emptyList()
 
     suspend fun loadData(page: Int): Result<List<WorkoutAndTrainer>> {
-        Log.d("LOADME", "loadData page $page")
+        debugLog("WorkoutManager", "loadData page $page")
         val workouts = loadWorkouts(page)
         val exception = workouts.exceptionOrNull()
         val workoutResult = workouts.getOrDefault(emptyList())
@@ -30,12 +30,13 @@ class WorkoutManager @Inject constructor() {
     }
 
     private fun loadWorkouts(page: Int): Result<List<WorkoutItem>> {
-        Log.d("LOADME" , "loading workouts page $page")
+        debugLog("WorkoutManager" , "loading workouts page $page")
         return WorkoutFetcher().loadData(page)
     }
 
     private suspend fun loadTrainers(workouts: List<WorkoutItem>): List<TrainerModel> {
         val trainerCopy = trainers.toMutableList()
+        debugLog("WorkoutManager" , "loading trainers ${trainerCopy.size}")
         workouts.map { workout ->
             if (trainers.filter { it.id == workout.trainerId }.isEmpty() ) {
                 val index = trainerCopy.size
@@ -54,6 +55,7 @@ class WorkoutManager @Inject constructor() {
     private suspend fun loadTrainer(
         trainerId: Int
     ): Result<TrainerModel> {
+        debugLog("WorkoutManager" , "loading trainer $trainerId")
         return TrainerFetcher().loadTrainer(trainerId)
     }
 }

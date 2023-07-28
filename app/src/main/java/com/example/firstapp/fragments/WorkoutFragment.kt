@@ -47,7 +47,7 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
 
     private fun setupLoadingIndicatorListener() {
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
-            if (isLoading) {
+            if (isLoading && (viewModel.result.value?: emptyList()).isEmpty()) {
                 showLoadingIndicator()
             } else {
                 hideLoadingIndicator()
@@ -57,8 +57,7 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
 
     private fun setupRefreshListener() {
         swipeRefreshLayout.setOnRefreshListener {
-            // Handle the data refresh here
-            viewModel.loadMoreData()
+            viewModel.reloadData()
         }
     }
 

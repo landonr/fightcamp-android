@@ -21,6 +21,7 @@ interface IFragmentItemViewModel {
     val page: MutableState<Int>
     val isLoading: MutableLiveData<Boolean>
     fun loadMoreData()
+    fun reloadData()
 }
 
 @HiltViewModel
@@ -32,18 +33,30 @@ class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable, I
     override val isLoading = MutableLiveData<Boolean>(false)
     init {
         debugLog("FragmentItemViewModel", "viewmodel init")
-        val page = page.value
         viewModelScope.launch {
-            loadData(page)
+            loadData()
         }
     }
 
-    private suspend fun loadData(page: Int) {
+    override fun reloadData() {
+        if (isLoading.value == true) {
+            debugLog("FragmentItemViewModel", "NOT reloading")
+            return
+        }
+        isLoading.postValue(true)
+        viewModelScope.launch {
+            page.value = 0
+            loadData()
+        }
+
+    }
+
+    private suspend fun loadData() {
         debugLog("FragmentItemViewModel", "loadData page $page")
         isLoading.postValue(true)
-        val workoutList = workoutManager.loadData(page)
+        val workoutList = workoutManager.loadData(page.value)
         workoutList.onSuccess {
-            isLoading.postValue(true)
+            isLoading.postValue(false)
             result.postValue(it)
         }
     }
@@ -55,10 +68,9 @@ class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable, I
         }
         isLoading.postValue(true)
         page.value += 1
-        val page = page.value
         viewModelScope.launch {
             debugLog("FragmentItemViewModel", "loading more page $page")
-            loadData(page)
+            loadData()
         }
     }
 }

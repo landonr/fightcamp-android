@@ -54,5 +54,9 @@ class ComposeItemViewModel @Inject constructor() : ViewModel(), Serializable, IF
             loadData(page)
         }
     }
+
+    override fun reloadData() {
+        TODO("Not yet implemented")
+    }
 }
 

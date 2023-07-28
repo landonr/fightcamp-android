@@ -36,16 +36,20 @@ class WorkoutManager @Inject constructor() {
 
     private suspend fun loadTrainers(workouts: List<WorkoutItem>): List<TrainerModel> {
         val trainerCopy = trainers.toMutableList()
-        debugLog("WorkoutManager" , "loading trainers ${trainerCopy.size}")
+        debugLog("WorkoutManager" , "loading trainers count=${trainerCopy.size}")
         workouts.map { workout ->
             if (trainerCopy.filter { it.id == workout.trainerId }.isEmpty() ) {
                 val index = trainerCopy.size
                 val tempTrainer = TrainerModel()
                 tempTrainer.id = workout.trainerId
                 trainerCopy.add(tempTrainer)
-                val newTrainer = loadTrainer(workout.trainerId)
-                newTrainer.getOrNull()?.run {
-                    trainerCopy.set(index, this)
+                val trainerResult = loadTrainer(workout.trainerId)
+                if (trainerResult.isFailure) {
+                    debugLog("WorkoutManager", "loading trainer failed ${workout.trainerId} ${trainerResult.exceptionOrNull()}")
+                } else {
+                    trainerResult.getOrNull()?.run {
+                        trainerCopy.set(index, this)
+                    }
                 }
             }
         }

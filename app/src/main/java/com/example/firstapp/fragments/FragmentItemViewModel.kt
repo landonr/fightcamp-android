@@ -34,7 +34,7 @@ class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable, I
     init {
         debugLog("FragmentItemViewModel", "viewmodel init")
         viewModelScope.launch {
-            loadData()
+            reloadData()
         }
     }
 
@@ -45,32 +45,38 @@ class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable, I
         }
         isLoading.postValue(true)
         viewModelScope.launch {
-            page.value = 0
-            loadData()
-        }
-
-    }
-
-    private suspend fun loadData() {
-        debugLog("FragmentItemViewModel", "loadData page $page")
-        isLoading.postValue(true)
-        val workoutList = workoutManager.loadData(page.value)
-        workoutList.onSuccess {
-            isLoading.postValue(false)
-            result.postValue(it)
+            val workoutResult = workoutManager.loadData(page.value)
+            if (workoutResult.isFailure) {
+                debugLog("FragmentItemViewModel", "${workoutResult.exceptionOrNull()}")
+                return@launch
+            }
+            workoutResult.onSuccess {
+                result.postValue(it)
+                isLoading.postValue(false)
+            }
         }
     }
 
     override fun loadMoreData() {
         if (isLoading.value == true) {
-            debugLog("FragmentItemViewModel", "NOT loading more page $page")
+            debugLog("FragmentItemViewModel", "NOT loading more page ${page.value}")
             return
         }
         isLoading.postValue(true)
         page.value += 1
         viewModelScope.launch {
-            debugLog("FragmentItemViewModel", "loading more page $page")
-            loadData()
+            debugLog("FragmentItemViewModel", "loading more page ${page.value}")
+            val workoutResult = workoutManager.loadData(page.value)
+            if (workoutResult.isFailure) {
+                debugLog("FragmentItemViewModel", "${workoutResult.exceptionOrNull()}")
+                return@launch
+            }
+            workoutResult.onSuccess {
+                val resultCopy = (result.value?: emptyList()).toMutableList()
+                resultCopy.addAll(it)
+                result.postValue(resultCopy)
+                isLoading.postValue(false)
+            }
         }
     }
 }

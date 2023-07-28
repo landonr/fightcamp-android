@@ -15,7 +15,7 @@ val WorkoutItem.dateString: String
         added?.let { time ->
             val date = Date(time.toLong() * 1000)
             val format = SimpleDateFormat("MM/dd/yyyy")
-            return " ⦁ " + format.format(date)
+            return format.format(date)
         }
         return ""
     }

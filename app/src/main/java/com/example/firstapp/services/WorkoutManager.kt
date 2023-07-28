@@ -22,14 +22,14 @@ class WorkoutManager @Inject constructor() {
                 workoutResult.map { workout ->
                     WorkoutAndTrainer(
                         workout,
-                        trainers.filter { workout.id == it.id }.firstOrNull()
+                        trainers.filter { workout.trainerId == it.id }.firstOrNull()
                     )
                 }
             )
         }
     }
 
-    private fun loadWorkouts(page: Int): Result<List<WorkoutItem>> {
+    private suspend fun loadWorkouts(page: Int): Result<List<WorkoutItem>> {
         debugLog("WorkoutManager" , "loading workouts page $page")
         return WorkoutFetcher().loadData(page)
     }

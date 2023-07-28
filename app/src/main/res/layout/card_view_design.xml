@@ -18,7 +18,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/card_padding">
 
             <TextView
                 android:id="@+id/titleTextView"
@@ -31,13 +32,13 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/trainerTextView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="0"
@@ -47,12 +48,23 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/dateTextView"
-                    android:layout_width="match_parent"
+                    android:id="@+id/dateTextView2"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="@dimen/card_text_padding"
+                    android:layout_weight="0"
+                    android:fontFamily="@font/graphik_regular"
+                    android:text="@string/card_date_circle"
+                    android:textSize="@dimen/small_title_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/card_text_padding"
                     android:layout_weight="1"
+                    android:breakStrategy="balanced"
                     android:fontFamily="@font/graphik_regular"
                     android:text="@string/card_date_title"
                     android:textSize="@dimen/small_title_size"

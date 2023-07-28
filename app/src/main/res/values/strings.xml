@@ -8,10 +8,11 @@
     <string name="second_fragment_label">Compose</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="card_title">Title</string>
-    <string name="card_trainer_title">Trainer</string>
-    <string name="card_date_title">Date</string>
+    <string name="card_title">5 Min. Stabilization Core Workout</string>
+    <string name="card_trainer_title">Tommy Duquette</string>
+    <string name="card_date_title">09/23/2021</string>
     <string name="card_image_description">Workout Image</string>
+    <string name="card_date_circle">⦁</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

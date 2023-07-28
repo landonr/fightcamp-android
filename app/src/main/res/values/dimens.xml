@@ -9,4 +9,5 @@
     <dimen name="large_title_size">18sp</dimen>
     <dimen name="small_title_size">14sp</dimen>
     <dimen name="detail_card_height">128dp</dimen>
+    <dimen name="card_text_padding">4dp</dimen>
 </resources>

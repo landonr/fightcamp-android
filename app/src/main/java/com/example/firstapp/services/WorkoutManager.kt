@@ -38,7 +38,7 @@ class WorkoutManager @Inject constructor() {
         val trainerCopy = trainers.toMutableList()
         debugLog("WorkoutManager" , "loading trainers ${trainerCopy.size}")
         workouts.map { workout ->
-            if (trainers.filter { it.id == workout.trainerId }.isEmpty() ) {
+            if (trainerCopy.filter { it.id == workout.trainerId }.isEmpty() ) {
                 val index = trainerCopy.size
                 val tempTrainer = TrainerModel()
                 tempTrainer.id = workout.trainerId

@@ -17,10 +17,10 @@ import java.io.Serializable
 import javax.inject.Inject
 
 @HiltViewModel
-class ComposeItemViewModel @Inject constructor() : ViewModel(), Serializable,
-    IFragmentItemViewModel {
-    @Inject lateinit var workoutManager: WorkoutManager
-    private val viewModelScope = CoroutineScope(Job() + Dispatchers.Default + CoroutineName("BackgroundCoroutine"))
+class ComposeItemViewModel @Inject constructor(
+    private var workoutManager: WorkoutManager
+    ) : ViewModel(), Serializable, IFragmentItemViewModel {
+    private val viewModelScope = CoroutineScope(Job() + Dispatchers.Default + CoroutineName("BackgroundCoroutineCompose"))
     override val result = MutableLiveData<List<WorkoutAndTrainer>>(emptyList())
     override val page = mutableStateOf(0)
     override val isLoading = MutableLiveData<Boolean>(false)
@@ -37,8 +37,8 @@ class ComposeItemViewModel @Inject constructor() : ViewModel(), Serializable,
         isLoading.postValue(true)
         val workoutList = workoutManager.loadData(page)
         workoutList.onSuccess {
-            isLoading.postValue(true)
             result.postValue(it)
+            isLoading.postValue(false)
         }
     }
 

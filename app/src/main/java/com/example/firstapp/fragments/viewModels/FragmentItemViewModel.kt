@@ -2,7 +2,6 @@ package com.example.firstapp.fragments.viewModels
 
 import Logger.Companion.debugLog
 import WorkoutAndTrainer
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,9 +16,6 @@ import java.io.Serializable
 import javax.inject.Inject
 
 interface IFragmentItemViewModel {
-    val result: MutableLiveData<List<WorkoutAndTrainer>>
-    val page: MutableState<Int>
-    val isLoading: MutableLiveData<Boolean>
     fun loadMoreData()
     fun reloadData()
 }
@@ -29,9 +25,9 @@ class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable,
     IFragmentItemViewModel {
     @Inject lateinit var workoutManager: WorkoutManager
     private val viewModelScope = CoroutineScope(Job() + Dispatchers.Default + CoroutineName("BackgroundCoroutine"))
-    override val result = MutableLiveData<List<WorkoutAndTrainer>>(emptyList())
-    override val page = mutableStateOf(0)
-    override val isLoading = MutableLiveData<Boolean>(false)
+    val result = MutableLiveData<List<WorkoutAndTrainer>>(emptyList())
+    val page = mutableStateOf(0)
+    val isLoading = MutableLiveData<Boolean>(false)
     init {
         debugLog("FragmentItemViewModel", "viewmodel init")
         viewModelScope.launch {

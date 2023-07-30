@@ -17,11 +17,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.firstapp.fragments.viewModels.IFragmentItemViewModel
 
 @Composable
-fun WorkoutComposableColumn(viewModel: IFragmentItemViewModel = ComposeItemViewModel(), navController: NavHostController, modifier: Modifier = Modifier) {
+fun WorkoutComposableColumn(viewModel: ComposeItemViewModel = hiltViewModel(), navController: NavHostController, modifier: Modifier = Modifier) {
     val padding = 16.dp
     val textState = remember { mutableStateOf(TextFieldValue("")) }
     val listState = rememberLazyListState()

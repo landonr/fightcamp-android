@@ -26,6 +26,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.firstapp.compose.viewModels.ComposeItemViewModel
 import com.example.firstapp.ui.theme.FirstAppTheme
 
 data class BottomNavItem(
@@ -91,9 +92,6 @@ fun WorkoutComposableHost(
         }) { contentPadding ->
         FirstAppTheme {
             Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-//                val viewModel = remember { ComposeItemViewModel() }
-//                val viewModel: ComposeItemViewModel by hiltNavGraphViewModels(R.id.nav_graph)
-
                 NavHost(
                     navController = navController,
                     startDestination = "column"

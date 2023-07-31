@@ -7,7 +7,6 @@
     android:orientation="vertical"
     tools:context=".fragments.WorkoutDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:id="@+id/detailImageViewWorkoutPreview"
         android:layout_width="match_parent"
@@ -20,7 +19,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/graphik_medium"
         android:padding="@dimen/card_padding"
-        android:text="@string/hello_blank_fragment"
+        android:text="@string/workout"
         android:textAlignment="center"
         android:textSize="@dimen/large_title_size" />
 
@@ -88,7 +87,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/graphik_medium"
                 android:padding="@dimen/card_padding"
-                android:text="@string/hello_blank_fragment"
+                android:text="@string/card_trainer_title"
                 android:textAlignment="textStart"
                 android:textSize="@dimen/large_title_size" />
 

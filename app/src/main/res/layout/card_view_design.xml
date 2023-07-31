@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="110dp"
     android:layout_margin="10dp"
+    app:cardBackgroundColor="@color/cardViewBackground"
     app:cardCornerRadius="14dp"
     app:cardElevation="6dp">
 
@@ -28,6 +29,7 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/graphik_medium"
                 android:text="@string/card_title"
+                android:textAppearance="@style/PrimaryText"
                 android:textSize="@dimen/large_title_size"
                 android:textStyle="bold" />
 
@@ -44,6 +46,7 @@
                     android:layout_weight="0"
                     android:fontFamily="@font/graphik_regular"
                     android:text="@string/card_trainer_title"
+                    android:textAppearance="@style/SecondaryText"
                     android:textSize="@dimen/small_title_size"
                     android:textStyle="bold" />
 
@@ -55,6 +58,7 @@
                     android:layout_weight="0"
                     android:fontFamily="@font/graphik_regular"
                     android:text="@string/card_date_circle"
+                    android:textAppearance="@style/SecondaryText"
                     android:textSize="@dimen/small_title_size"
                     android:textStyle="bold" />
 
@@ -67,6 +71,7 @@
                     android:breakStrategy="balanced"
                     android:fontFamily="@font/graphik_regular"
                     android:text="@string/card_date_title"
+                    android:textAppearance="@style/SecondaryText"
                     android:textSize="@dimen/small_title_size"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -78,8 +83,8 @@
             android:layout_width="144dp"
             android:layout_height="match_parent"
             android:layout_margin="0dp"
-            android:scaleType="centerCrop"
             android:contentDescription="@string/card_image_description"
+            android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars" />
 
     </LinearLayout>

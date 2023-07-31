@@ -44,8 +44,8 @@ fun DetailActivity(navController: NavHostController, detailedInfo: WorkoutAndTra
                     text = detailedInfo.workout.desc?: "",
                     modifier = Modifier.padding(16.dp)
                 )
-                detailedInfo.trainer?.let { trainer ->
-                    trainerCard(trainer, modifier = Modifier.padding(16.dp))
+                detailedInfo.trainer?.run {
+                    trainerCard(this, modifier = Modifier.padding(16.dp))
                 }
             }
         }

@@ -105,8 +105,8 @@ fun WorkoutComposableHost(
                     }
                     composable("detail/{itemId}") { backStackEntry ->
                         val itemId = backStackEntry.arguments?.getString("itemId")
-                        viewModel.result.value?.first { it.workout.id.toString() == itemId }?.let {
-                            DetailActivity(navController, it)
+                        viewModel.result.value?.first { it.workout.id.toString() == itemId }?.run {
+                            DetailActivity(navController, this)
                         }
                     }
                 }

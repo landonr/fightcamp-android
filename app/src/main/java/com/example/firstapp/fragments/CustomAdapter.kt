@@ -34,9 +34,9 @@ class CustomAdapter(
         val workout = dataList[position]
 
         // sets the image to the imageview from our itemHolder class
-        workout.workout.previewImgUrl?.let {
+        workout.workout.previewImgUrl?.run {
             Glide.with(holder.imageView)
-                .load(it)
+                .load(this)
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
                 .into(holder.imageView)
         }

@@ -12,8 +12,8 @@ val TrainerModel.fullTitle: String
 
 val WorkoutItem.dateString: String
     get() {
-        added?.let { time ->
-            val date = Date(time.toLong() * 1000)
+        added?.run {
+            val date = Date(this.toLong() * 1000)
             val format = SimpleDateFormat("MM/dd/yyyy")
             return format.format(date)
         }

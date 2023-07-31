@@ -23,12 +23,12 @@ class WorkoutDetailFragment : Fragment() {
         val viewHolder = ViewHolder(view)
         if(arguments?.containsKey(getString(R.string.workout)) == true) {
             val data = arguments?.getSerializableSafe(getString(R.string.workout), WorkoutAndTrainer::class.java)
-            data.let {
-                it?.workout?.let { workout ->
-                    setupWorkoutDetails(viewHolder, workout)
+            data?.run {
+                this.workout?.run {
+                    setupWorkoutDetails(viewHolder, this)
                 }
-                it?.trainer?.let { trainer ->
-                    setupTrainerDetails(viewHolder, trainer)
+                this.trainer?.run {
+                    setupTrainerDetails(viewHolder, this)
                 }
             }
         }
@@ -39,9 +39,9 @@ class WorkoutDetailFragment : Fragment() {
         trainer: TrainerModel
     ) {
         viewHolder.trainerTextView.text = trainer.fullTitle
-        trainer.photoUrl?.let {
+        trainer.photoUrl?.run {
             Glide.with(viewHolder.trainerImageView)
-                .load(it)
+                .load(this)
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
                 .into(viewHolder.trainerImageView)
         }
@@ -53,9 +53,9 @@ class WorkoutDetailFragment : Fragment() {
     ) {
         viewHolder.titleTextView.text = workout.title
         viewHolder.descriptionTextView.text = workout.desc
-        workout.previewImgUrl?.let {
+        workout.previewImgUrl?.run {
             Glide.with(viewHolder.imageView)
-                .load(it)
+                .load(this)
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
                 .into(viewHolder.imageView)
         }

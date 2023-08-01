@@ -27,7 +27,11 @@ import com.example.firstapp.compose.viewModels.ComposeItemViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun WorkoutComposableColumn(viewModel: ComposeItemViewModel = hiltViewModel(), navController: NavHostController, modifier: Modifier = Modifier) {
+fun WorkoutComposableColumn(
+    viewModel: ComposeItemViewModel = hiltViewModel(),
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
     val padding = 16.dp
     val textState = remember { mutableStateOf(TextFieldValue("")) }
     val listState = rememberLazyListState()
@@ -35,19 +39,19 @@ fun WorkoutComposableColumn(viewModel: ComposeItemViewModel = hiltViewModel(), n
         refreshing = viewModel.isLoading.value,
         onRefresh = viewModel::reloadData
     )
-    if(viewModel.isLoading.value && viewModel.result.value.isEmpty()) {
+    if (viewModel.isLoading.value && viewModel.result.value.isEmpty()) {
         LoadingScreen()
     } else {
         Box(Modifier.pullRefresh(pullRefreshState)) {
-            Column() {
+            Column {
                 SearchBar(textState)
                 LazyColumn(state = listState) {
-                    items(GetFilteredList(viewModel.result.value ?: emptyList(), textState)) {
+                    items(GetFilteredList(viewModel.result.value, textState)) {
                         WorkoutCard(modifier = Modifier.clickable {
                             navController.navigate("detail/${it.workout.id}")
                         }, workoutItem = it)
                     }
-                    if (viewModel.isLoading.value) { // Assuming you have a flag to indicate loading state
+                    if (viewModel.isLoading.value) {
                         item {
                             Box(
                                 modifier = Modifier

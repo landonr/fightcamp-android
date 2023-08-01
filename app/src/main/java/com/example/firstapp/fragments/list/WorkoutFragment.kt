@@ -29,9 +29,12 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
     private lateinit var loadingIndicator: ProgressBar
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         super.onCreate(savedInstanceState)
-        // Inflate the fragment's XML layout
         var view = layoutInflater.inflate(R.layout.workout_fragment, null, false)
         loadingIndicator = view.findViewById<ProgressBar>(R.id.progressBar)
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
@@ -43,12 +46,15 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
     }
 
     override fun onItemClick(data: WorkoutAndTrainer) {
-        findNavController().navigate(R.id.workoutDetailFragment, bundleOf(getString(R.string.workout) to data))
+        findNavController().navigate(
+            R.id.workoutDetailFragment,
+            bundleOf(getString(R.string.workout) to data)
+        )
     }
 
     private fun setupLoadingIndicatorListener() {
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
-            if (isLoading && (viewModel.result.value?: emptyList()).isEmpty()) {
+            if (isLoading && (viewModel.result.value ?: emptyList()).isEmpty()) {
                 showLoadingIndicator()
             } else {
                 hideLoadingIndicator()
@@ -85,7 +91,6 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
                 if (viewModel.isLoading.value == false && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                    // Load more data
                     viewModel.loadMoreData()
                 }
             }
@@ -94,7 +99,6 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
 
     private fun bindToResultLiveData(adapter: WorkoutAdapter) {
         viewModel.result.observe(viewLifecycleOwner, Observer { updatedResult ->
-            // Update the adapter's data list with the new data and notify the adapter
             adapter.dataList = updatedResult
             adapter.notifyDataSetChanged()
         })

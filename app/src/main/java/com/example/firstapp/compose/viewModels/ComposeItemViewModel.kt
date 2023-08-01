@@ -18,12 +18,13 @@ import javax.inject.Inject
 @HiltViewModel
 class ComposeItemViewModel @Inject constructor(
     private var workoutManager: WorkoutManager
-    ) : ViewModel(), Serializable, IFragmentItemViewModel {
+) : ViewModel(), Serializable, IFragmentItemViewModel {
     private val viewModelScope =
         CoroutineScope(Job() + Dispatchers.Default + CoroutineName("BackgroundCoroutineCompose"))
     val result = mutableStateOf<List<WorkoutAndTrainer>>(emptyList())
     val page = mutableStateOf(0)
     val isLoading = mutableStateOf(false)
+
     init {
         Logger.debugLog("ComposeItemViewModel", "viewmodel init")
         val page = page.value
@@ -37,14 +38,17 @@ class ComposeItemViewModel @Inject constructor(
         Logger.debugLog("ComposeItemViewModel", "loadData page $page")
         val workoutList = workoutManager.loadData(page)
         workoutList.onSuccess {
-            viewModelScope.launch(Dispatchers.Main){
+            viewModelScope.launch(Dispatchers.Main) {
                 if (clear) {
                     result.value = it
                 } else {
                     result.value = result.value + it
                 }
                 isLoading.value = false
-                Logger.debugLog("ComposeItemViewModel", "data loaded count ${it.size} total ${result.value.size}")
+                Logger.debugLog(
+                    "ComposeItemViewModel",
+                    "data loaded count ${it.size} total ${result.value.size}"
+                )
             }
         }
     }

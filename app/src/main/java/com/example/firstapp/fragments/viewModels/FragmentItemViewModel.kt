@@ -23,11 +23,14 @@ interface IFragmentItemViewModel {
 @HiltViewModel
 class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable,
     IFragmentItemViewModel {
-    @Inject lateinit var workoutManager: WorkoutManager
-    private val viewModelScope = CoroutineScope(Job() + Dispatchers.Default + CoroutineName("BackgroundCoroutine"))
+    @Inject
+    lateinit var workoutManager: WorkoutManager
+    private val viewModelScope =
+        CoroutineScope(Job() + Dispatchers.Default + CoroutineName("BackgroundCoroutine"))
     val result = MutableLiveData<List<WorkoutAndTrainer>>(emptyList())
     val page = mutableStateOf(0)
     val isLoading = MutableLiveData<Boolean>(false)
+
     init {
         debugLog("FragmentItemViewModel", "viewmodel init")
         viewModelScope.launch {
@@ -69,7 +72,7 @@ class FragmentItemViewModel @Inject constructor() : ViewModel(), Serializable,
                 return@launch
             }
             workoutResult.onSuccess {
-                val resultCopy = (result.value?: emptyList()).toMutableList()
+                val resultCopy = (result.value ?: emptyList()).toMutableList()
                 resultCopy.addAll(it)
                 result.postValue(resultCopy)
                 isLoading.postValue(false)

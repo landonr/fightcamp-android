@@ -64,7 +64,7 @@ private fun WorkoutCardInfo(
             text = workoutItem.workout.title ?: "none",
             fontWeight = FontWeight.Bold
         )
-        val name = workoutItem.trainer?.fullTitle?: ""
+        val name = workoutItem.trainer?.fullTitle ?: ""
         val nameFontSize = 14.sp
         Row(
             modifier = Modifier
@@ -93,7 +93,7 @@ fun WorkoutCard(modifier: Modifier = Modifier, workoutItem: WorkoutAndTrainer) {
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(colorResource(R.color.cardViewBackground))
     ) {
-        Row() {
+        Row {
             WorkoutCardInfo(
                 modifier
                     .weight(1f)
@@ -119,6 +119,8 @@ fun WorkoutCardPreview() {
             Modifier,
             WorkoutAndTrainer(
                 WorkoutItem(0, "Text", "Test", "text", 0, 0, "", "", 0),
-                TrainerModel(0, "", "", "")))
+                TrainerModel(0, "", "", "")
+            )
+        )
     }
 }

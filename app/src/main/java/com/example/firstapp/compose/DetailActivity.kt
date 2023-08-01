@@ -26,12 +26,11 @@ import com.example.firstapp.ui.theme.FirstAppTheme
 @Composable
 fun DetailActivity(navController: NavHostController, detailedInfo: WorkoutAndTrainer) {
     FirstAppTheme {
-        // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Column() {
+            Column {
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
                         .data(detailedInfo.workout.previewImgUrl)
@@ -41,7 +40,7 @@ fun DetailActivity(navController: NavHostController, detailedInfo: WorkoutAndTra
                     contentScale = ContentScale.Crop
                 )
                 Text(
-                    text = detailedInfo.workout.desc?: "",
+                    text = detailedInfo.workout.desc ?: "",
                     modifier = Modifier.padding(16.dp)
                 )
                 detailedInfo.trainer?.run {
@@ -58,7 +57,7 @@ private fun trainerCard(trainer: TrainerModel, modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Row() {
+        Row {
             val trainerName =
                 trainer.firstName + " " + trainer.lastName
             Text(

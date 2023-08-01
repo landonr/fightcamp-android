@@ -1,4 +1,5 @@
 package com.example.firstapp.services
+
 import com.example.firstapp.services.fightcamp.ApiConstants
 import com.example.firstapp.services.fightcamp.FightCampApiService
 import retrofit2.Response
@@ -13,7 +14,7 @@ object ApiService {
         .create(FightCampApiService::class.java)
 }
 
-fun <T>resultFromResponse(call: Response<T>): Result<T> {
+fun <T> resultFromResponse(call: Response<T>): Result<T> {
     if (call.isSuccessful) {
         call.body()?.run {
             return Result.success(this)

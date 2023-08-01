@@ -13,10 +13,13 @@ class WorkoutDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val workoutCardView = WorkoutDetailView(view)
-        if(arguments?.containsKey(getString(R.string.workout)) == true) {
-            val data = arguments?.getSerializableSafe(getString(R.string.workout), WorkoutAndTrainer::class.java)
+        if (arguments?.containsKey(getString(R.string.workout)) == true) {
+            val data = arguments?.getSerializableSafe(
+                getString(R.string.workout),
+                WorkoutAndTrainer::class.java
+            )
             data?.run {
-                this.workout?.run {
+                this.workout.run {
                     workoutCardView.setupWorkoutDetails(this)
                 }
                 this.trainer?.run {
@@ -30,7 +33,6 @@ class WorkoutDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.workout_detail_fragment, container, false)
     }
 }

@@ -37,12 +37,14 @@ object ApiWorker {
 
     val gsonConverter: GsonConverterFactory
         get() {
-            if(mGsonConverter == null){
+            if (mGsonConverter == null) {
                 mGsonConverter = GsonConverterFactory
-                    .create(GsonBuilder()
-                        .setLenient()
-                        .disableHtmlEscaping()
-                        .create())
+                    .create(
+                        GsonBuilder()
+                            .setLenient()
+                            .disableHtmlEscaping()
+                            .create()
+                    )
             }
             return mGsonConverter!!
         }

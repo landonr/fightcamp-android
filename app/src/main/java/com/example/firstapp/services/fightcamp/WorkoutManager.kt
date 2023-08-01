@@ -17,7 +17,7 @@ class WorkoutManager @Inject constructor() {
         val exception = workouts.exceptionOrNull()
         val workoutResult = workouts.getOrDefault(emptyList())
         if (exception != null || workouts.isFailure) {
-            return Result.failure(exception?: Throwable())
+            return Result.failure(exception ?: Throwable())
         } else {
             trainers = loadTrainers(workoutResult)
             return Result.success(
@@ -32,22 +32,25 @@ class WorkoutManager @Inject constructor() {
     }
 
     private suspend fun loadWorkouts(page: Int): Result<List<WorkoutItem>> {
-        debugLog("WorkoutManager" , "loading workouts page $page")
+        debugLog("WorkoutManager", "loading workouts page $page")
         return WorkoutFetcher().loadData(page)
     }
 
     private suspend fun loadTrainers(workouts: List<WorkoutItem>): List<TrainerModel> {
         val trainerCopy = trainers.toMutableList()
-        debugLog("WorkoutManager" , "loading trainers count=${trainerCopy.size}")
+        debugLog("WorkoutManager", "loading trainers count=${trainerCopy.size}")
         workouts.map { workout ->
-            if (trainerCopy.filter { it.id == workout.trainerId }.isEmpty() ) {
+            if (trainerCopy.filter { it.id == workout.trainerId }.isEmpty()) {
                 val index = trainerCopy.size
                 val tempTrainer = TrainerModel()
                 tempTrainer.id = workout.trainerId
                 trainerCopy.add(tempTrainer)
                 val trainerResult = loadTrainer(workout.trainerId)
                 if (trainerResult.isFailure) {
-                    debugLog("WorkoutManager", "loading trainer failed ${workout.trainerId} ${trainerResult.exceptionOrNull()}")
+                    debugLog(
+                        "WorkoutManager",
+                        "loading trainer failed ${workout.trainerId} ${trainerResult.exceptionOrNull()}"
+                    )
                 } else {
                     trainerResult.getOrNull()?.run {
                         trainerCopy.set(index, this)
@@ -61,7 +64,7 @@ class WorkoutManager @Inject constructor() {
     private suspend fun loadTrainer(
         trainerId: Int
     ): Result<TrainerModel> {
-        debugLog("WorkoutManager" , "loading trainer $trainerId")
+        debugLog("WorkoutManager", "loading trainer $trainerId")
         return TrainerFetcher().loadTrainer(trainerId)
     }
 }

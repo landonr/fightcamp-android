@@ -12,7 +12,6 @@ import com.example.firstapp.R
 import dateString
 import fullTitle
 
-// Holds the views for adding it to image and text
 class WorkoutCardViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
     val imageView: ImageView = itemView.findViewById(R.id.imageview)
     val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
@@ -30,12 +29,10 @@ class WorkoutCardViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) 
                 .into(imageView)
         }
 
-        // sets the text to the textview from our itemHolder class
         titleTextView.text = workout.workout.title
         trainerTextView.text = workout.trainer?.fullTitle
         dateTextView.text = workout.workout.dateString
         itemView.setOnClickListener {
-            // Call the onItemClick listener when an item is clicked
             itemClickListener.onItemClick(workout)
         }
     }

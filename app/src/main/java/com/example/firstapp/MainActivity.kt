@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.firstapp.R.layout.activity_main)
+        setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
         val layout = findViewById<CollapsingToolbarLayout>(R.id.collapsing_toolbar_layout)
@@ -52,9 +52,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    class LayoutConfiguration(val layoutVisible: Int, val bottonNavigationViewVisible: Int) {}
+    class LayoutConfiguration(val layoutVisible: Int, val bottonNavigationViewVisible: Int)
+
     fun currentLayoutConfiguration(destination: Int): LayoutConfiguration {
-        return when(destination) {
+        return when (destination) {
             R.id.workoutDetailFragment -> LayoutConfiguration(View.VISIBLE, View.GONE)
             R.id.workoutFragment -> LayoutConfiguration(View.GONE, View.VISIBLE)
             R.id.componentEmbedFragment -> LayoutConfiguration(View.GONE, View.VISIBLE)

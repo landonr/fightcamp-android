@@ -71,12 +71,15 @@ fun SearchBar(state: MutableState<TextFieldValue>) {
     )
 }
 
-fun GetFilteredList(results: List<WorkoutAndTrainer>, state: MutableState<TextFieldValue>): List<WorkoutAndTrainer> {
+fun GetFilteredList(
+    results: List<WorkoutAndTrainer>,
+    state: MutableState<TextFieldValue>
+): List<WorkoutAndTrainer> {
     if (state.value.text.isNotEmpty()) {
         return results.filter {
             var searchTitle = state.value.text
                 .lowercase().replace(" ", "")
-            var valueTitle = it.workout.title?: ""
+            var valueTitle = it.workout.title ?: ""
             return@filter valueTitle
                 .lowercase().replace(" ", "")
                 .contains(searchTitle)
@@ -87,8 +90,8 @@ fun GetFilteredList(results: List<WorkoutAndTrainer>, state: MutableState<TextFi
 
 @Composable
 fun LazyListState.OnBottomReached(
-    loadMore : () -> Unit
-){
+    loadMore: () -> Unit
+) {
     val shouldLoadMore = remember {
         derivedStateOf {
             val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull()
@@ -98,11 +101,9 @@ fun LazyListState.OnBottomReached(
         }
     }
 
-    // Convert the state into a cold flow and collect
-    LaunchedEffect(shouldLoadMore){
+    LaunchedEffect(shouldLoadMore) {
         snapshotFlow { shouldLoadMore.value }
             .collect {
-                // if should load more, then invoke loadMore
                 if (it) loadMore()
             }
     }

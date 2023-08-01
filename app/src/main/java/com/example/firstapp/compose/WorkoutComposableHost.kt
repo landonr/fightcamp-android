@@ -34,6 +34,7 @@ data class BottomNavItem(
     val route: String,
     val icon: ImageVector,
 )
+
 val bottomNavItems = listOf(
     BottomNavItem(
         name = "Compose",
@@ -60,13 +61,15 @@ fun WorkoutComposableHost(
     topBarState: MutableState<Boolean>,
     viewModel: ComposeItemViewModel = hiltViewModel()
 ) {
-    when(currentRoute(navController = navController)) {
+    when (currentRoute(navController = navController)) {
         "column" -> {
             topBarState.value = false
         }
+
         "detail/{itemId}" -> {
             topBarState.value = true
         }
+
         "xmlColumn" -> {
             topBarState.value = false
         }
@@ -91,7 +94,10 @@ fun WorkoutComposableHost(
             }
         }) { contentPadding ->
         FirstAppTheme {
-            Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
                 NavHost(
                     navController = navController,
                     startDestination = "column"
@@ -105,7 +111,7 @@ fun WorkoutComposableHost(
                     }
                     composable("detail/{itemId}") { backStackEntry ->
                         val itemId = backStackEntry.arguments?.getString("itemId")
-                        viewModel.result.value?.first { it.workout.id.toString() == itemId }?.run {
+                        viewModel.result.value.first { it.workout.id.toString() == itemId }?.run {
                             DetailActivity(navController, this)
                         }
                     }

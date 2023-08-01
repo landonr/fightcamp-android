@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.example.firstapp.services.resultFromResponse
 
-class WorkoutFetcher() {
+class WorkoutFetcher {
     suspend fun loadData(page: Int): Result<List<WorkoutItem>> {
         return withContext(Dispatchers.IO) {
             val call = ApiService.fightCampApi().getWorkouts(page)

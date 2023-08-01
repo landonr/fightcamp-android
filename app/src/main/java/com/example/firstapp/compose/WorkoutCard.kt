@@ -14,22 +14,27 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.firstapp.datamodel.WorkoutItems
+import com.example.firstapp.R
+import com.example.firstapp.datamodel.TrainerModel
+import com.example.firstapp.datamodel.WorkoutItem
+import com.example.firstapp.ui.theme.FirstAppTheme
 import dateString
 import fullTitle
 import java.text.SimpleDateFormat
 import java.util.Date
 
 @Composable
-fun PhotoCard(modifier: Modifier = Modifier, workout: WorkoutItems) {
+fun PhotoCard(modifier: Modifier = Modifier, workout: WorkoutItem) {
     AsyncImage(
         model = ImageRequest.Builder(context = LocalContext.current)
             .data(workout.previewImgUrl)
@@ -59,7 +64,7 @@ private fun WorkoutCardInfo(
             text = workoutItem.workout.title ?: "none",
             fontWeight = FontWeight.Bold
         )
-        val name = workoutItem.trainer?.fullTitle?: ""
+        val name = workoutItem.trainer?.fullTitle ?: ""
         val nameFontSize = 14.sp
         Row(
             modifier = Modifier
@@ -80,27 +85,42 @@ private fun WorkoutCardInfo(
 
 @Composable
 fun WorkoutCard(modifier: Modifier = Modifier, workoutItem: WorkoutAndTrainer) {
-    val padding = 16.dp
+    val padding = dimensionResource(R.dimen.card_padding)
     Card(
         modifier = Modifier
             .padding(padding)
-            .height(110.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            .height(dimensionResource(R.dimen.card_height)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(colorResource(R.color.cardViewBackground))
     ) {
-        Row() {
+        Row {
             WorkoutCardInfo(
                 modifier
                     .weight(1f)
-                    .padding(8.dp), workoutItem
+                    .padding(dimensionResource(R.dimen.card_padding)), workoutItem
             )
             Box(
                 modifier = Modifier
-                    .background(Color.DarkGray)
-                    .width(148.dp)
+                    .background(colorResource(R.color.brand_gray6))
+                    .width(dimensionResource(R.dimen.image_width))
                     .fillMaxHeight()
             ) {
                 PhotoCard(modifier, workoutItem.workout)
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WorkoutCardPreview() {
+    FirstAppTheme {
+        WorkoutCard(
+            Modifier,
+            WorkoutAndTrainer(
+                WorkoutItem(0, "Text", "Test", "text", 0, 0, "", "", 0),
+                TrainerModel(0, "", "", "")
+            )
+        )
     }
 }

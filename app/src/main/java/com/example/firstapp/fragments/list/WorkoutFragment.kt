@@ -1,4 +1,4 @@
-package com.example.firstapp.fragments
+package com.example.firstapp.fragments.list
 
 import WorkoutAndTrainer
 import android.os.Bundle
@@ -9,30 +9,35 @@ import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.firstapp.ItemViewModel
 import com.example.firstapp.R
+import com.example.firstapp.fragments.viewModels.FragmentItemViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 interface OnItemClickListener {
     fun onItemClick(data: WorkoutAndTrainer)
 }
+
+@AndroidEntryPoint
 class WorkoutFragment : Fragment(), OnItemClickListener {
-    lateinit var viewModel: ItemViewModel
+    private val viewModel by viewModels<FragmentItemViewModel>()
     private lateinit var loadingIndicator: ProgressBar
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         super.onCreate(savedInstanceState)
-        // Inflate the fragment's XML layout
         var view = layoutInflater.inflate(R.layout.workout_fragment, null, false)
         loadingIndicator = view.findViewById<ProgressBar>(R.id.progressBar)
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
-        viewModel = ViewModelProvider(this)[ItemViewModel::class.java]
         setupLoadingIndicatorListener()
         setupRecyclerView(view)
         setupRefreshListener()
@@ -41,12 +46,15 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
     }
 
     override fun onItemClick(data: WorkoutAndTrainer) {
-        findNavController().navigate(R.id.workoutDetailFragment, bundleOf(getString(R.string.workout) to data))
+        findNavController().navigate(
+            R.id.workoutDetailFragment,
+            bundleOf(getString(R.string.workout) to data)
+        )
     }
 
     private fun setupLoadingIndicatorListener() {
         viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
-            if (isLoading) {
+            if (isLoading && (viewModel.result.value ?: emptyList()).isEmpty()) {
                 showLoadingIndicator()
             } else {
                 hideLoadingIndicator()
@@ -56,8 +64,7 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
 
     private fun setupRefreshListener() {
         swipeRefreshLayout.setOnRefreshListener {
-            // Handle the data refresh here
-            viewModel.loadMoreData()
+            viewModel.reloadData()
         }
     }
 
@@ -65,7 +72,7 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
         val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerView)
         val layoutManager = LinearLayoutManager(this.context)
         recyclerview.layoutManager = layoutManager
-        val adapter = CustomAdapter(emptyList(), this)
+        val adapter = WorkoutAdapter(emptyList(), this)
         recyclerview.adapter = adapter
         bindToResultLiveData(adapter)
         setupLoadMoreListener(recyclerview, layoutManager)
@@ -84,16 +91,14 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
                 if (viewModel.isLoading.value == false && (visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                    // Load more data
                     viewModel.loadMoreData()
                 }
             }
         })
     }
 
-    private fun bindToResultLiveData(adapter: CustomAdapter) {
-        viewModel.resultLiveData.observe(viewLifecycleOwner, Observer { updatedResult ->
-            // Update the adapter's data list with the new data and notify the adapter
+    private fun bindToResultLiveData(adapter: WorkoutAdapter) {
+        viewModel.result.observe(viewLifecycleOwner, Observer { updatedResult ->
             adapter.dataList = updatedResult
             adapter.notifyDataSetChanged()
         })

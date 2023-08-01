@@ -18,15 +18,15 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.firstapp.ItemViewModel
+import com.example.firstapp.compose.viewModels.ComposeItemViewModel
 import com.example.firstapp.ui.theme.FirstAppTheme
 
 data class BottomNavItem(
@@ -34,6 +34,7 @@ data class BottomNavItem(
     val route: String,
     val icon: ImageVector,
 )
+
 val bottomNavItems = listOf(
     BottomNavItem(
         name = "Compose",
@@ -57,15 +58,18 @@ fun currentRoute(navController: NavHostController): String? {
 @Composable
 fun WorkoutComposableHost(
     navController: NavHostController,
-    topBarState: MutableState<Boolean>
+    topBarState: MutableState<Boolean>,
+    viewModel: ComposeItemViewModel = hiltViewModel()
 ) {
-    when(currentRoute(navController = navController)) {
+    when (currentRoute(navController = navController)) {
         "column" -> {
             topBarState.value = false
         }
+
         "detail/{itemId}" -> {
             topBarState.value = true
         }
+
         "xmlColumn" -> {
             topBarState.value = false
         }
@@ -90,9 +94,10 @@ fun WorkoutComposableHost(
             }
         }) { contentPadding ->
         FirstAppTheme {
-            Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                val viewModel = remember { ItemViewModel() }
-
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
                 NavHost(
                     navController = navController,
                     startDestination = "column"
@@ -106,8 +111,8 @@ fun WorkoutComposableHost(
                     }
                     composable("detail/{itemId}") { backStackEntry ->
                         val itemId = backStackEntry.arguments?.getString("itemId")
-                        viewModel.result.first { it.workout.id.toString() == itemId }?.let {
-                            DetailActivity(navController, it)
+                        viewModel.result.value.first { it.workout.id.toString() == itemId }?.run {
+                            DetailActivity(navController, this)
                         }
                     }
                 }

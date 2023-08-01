@@ -2,8 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">@color/brand_gray4</color>
-    <color name="colorSecondary">@color/brand_gray3</color>
+    <color name="colorPrimary">@color/brand_gray0</color>
+    <color name="colorSecondary">@color/brand_gray2</color>
     <color name="brand_gray0">#FFEDF0F2</color>
     <color name="brand_gray1">#FFDDDFE1</color>
     <color name="brand_gray2">#FFB4B9BE</color>
@@ -11,5 +11,5 @@
     <color name="brand_gray4">#FF4F555C</color>
     <color name="brand_gray5">#FF31363B</color>
     <color name="brand_gray6">#FF14171A</color>
-    <color name="cardViewBackground">@color/brand_gray0</color>
+    <color name="cardViewBackground">@color/brand_gray4</color>
 </resources>

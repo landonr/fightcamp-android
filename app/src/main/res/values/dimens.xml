@@ -3,10 +3,12 @@
     <dimen name="corner_radius_small">4dp</dimen>
     <dimen name="corner_radius_large">14dp</dimen>
     <dimen name="card_padding">12dp</dimen>
-    <dimen name="card_height">12dp</dimen>
+    <dimen name="card_height">110dp</dimen>
+    <dimen name="image_width">148dp</dimen>
     <dimen name="card_max_width">500dp</dimen>
     <dimen name="card_preview_width">12dp</dimen>
     <dimen name="large_title_size">18sp</dimen>
     <dimen name="small_title_size">14sp</dimen>
     <dimen name="detail_card_height">128dp</dimen>
+    <dimen name="card_text_padding">4dp</dimen>
 </resources>

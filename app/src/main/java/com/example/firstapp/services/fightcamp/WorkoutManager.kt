@@ -1,4 +1,4 @@
-package com.example.firstapp.services
+package com.example.firstapp.services.fightcamp
 
 import Logger.Companion.debugLog
 import WorkoutAndTrainer

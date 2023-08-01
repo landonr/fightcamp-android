@@ -1,10 +1,10 @@
-package com.example.firstapp.services
+package com.example.firstapp.services.fightcamp
 
-import ApiService
+import com.example.firstapp.services.ApiService
 import com.example.firstapp.datamodel.WorkoutItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import resultFromResponse
+import com.example.firstapp.services.resultFromResponse
 
 class WorkoutFetcher() {
     suspend fun loadData(page: Int): Result<List<WorkoutItem>> {

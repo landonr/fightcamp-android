@@ -5,7 +5,7 @@ import WorkoutAndTrainer
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.firstapp.fragments.viewModels.IFragmentItemViewModel
-import com.example.firstapp.services.WorkoutManager
+import com.example.firstapp.services.fightcamp.WorkoutManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/workoutDetailFragment"
-        android:name="com.example.firstapp.fragments.WorkoutDetailFragment"
+        android:name="com.example.firstapp.fragments.detail.WorkoutDetailFragment"
         android:label="workout_detail_fragment"
         tools:layout="@layout/workout_detail_fragment" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/workoutFragment"
-        android:name="com.example.firstapp.fragments.WorkoutFragment"
+        android:name="com.example.firstapp.fragments.list.WorkoutFragment"
         android:label="workout_fragment"
         tools:layout="@layout/workout_fragment" >
         <action

@@ -1,4 +1,4 @@
-package com.example.firstapp.fragments
+package com.example.firstapp.fragments.list
 
 import WorkoutAndTrainer
 import android.os.Bundle
@@ -66,7 +66,7 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
         val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerView)
         val layoutManager = LinearLayoutManager(this.context)
         recyclerview.layoutManager = layoutManager
-        val adapter = CustomAdapter(emptyList(), this)
+        val adapter = WorkoutAdapter(emptyList(), this)
         recyclerview.adapter = adapter
         bindToResultLiveData(adapter)
         setupLoadMoreListener(recyclerview, layoutManager)
@@ -92,7 +92,7 @@ class WorkoutFragment : Fragment(), OnItemClickListener {
         })
     }
 
-    private fun bindToResultLiveData(adapter: CustomAdapter) {
+    private fun bindToResultLiveData(adapter: WorkoutAdapter) {
         viewModel.result.observe(viewLifecycleOwner, Observer { updatedResult ->
             // Update the adapter's data list with the new data and notify the adapter
             adapter.dataList = updatedResult
